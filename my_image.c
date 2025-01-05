@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+//gcc -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+// export DISPLAY=:0 xeyes
 /*typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -36,11 +38,11 @@ int	main(void)
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 675, 675, "songul");
-	img = mlx_xpm_file_to_image(mlx, "bachgroundd.xpm", &img_width, &img_height);
-	wall = mlx_xpm_file_to_image(mlx, "hit.xpm", &img_width, &img_height);
-	end = mlx_xpm_file_to_image(mlx, "sala.xpm", &img_width, &img_height);
-	player = mlx_xpm_file_to_image(mlx, "players.xpm", &img_width, &img_height);
-	collect = mlx_xpm_file_to_image(mlx, "fish.xpm", &img_width, &img_height);
+	img = mlx_xpm_file_to_image(mlx, "bachground.xpm", &img_width, &img_height);
+	wall = mlx_xpm_file_to_image(mlx, "wall.xpm", &img_width, &img_height);
+	end = mlx_xpm_file_to_image(mlx, "end.xpm", &img_width, &img_height);
+	player = mlx_xpm_file_to_image(mlx, "swan_1.xpm", &img_width, &img_height);
+	collect = mlx_xpm_file_to_image(mlx, "fishh.xpm", &img_width, &img_height);
 	/*img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 				&img.endian);
 	*/
