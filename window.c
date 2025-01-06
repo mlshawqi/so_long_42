@@ -21,50 +21,6 @@ int ft(int keysym, t_mlx *t)
     return 1;
 }
 
-int     change_color(t_mlx *data)
-{
-    // Fill the window with the current color
-    //mlx_clear_window(data->mlx_connection, data->mlx_window);
-    mlx_string_put(data->mlx_connection, data->mlx_window, 150, 150, data->color, "Color Changing Window!");
-
-    // Cycle through some basic colors: RED, GREEN, BLUE
-/*    if (data->color == 0xFF0000)        // If it's red
-        data->color = 0x00FF00;        // Change to green
-    else if (data->color == 0x00FF00)   // If it's green
-        data->color = 0x0000FF;        // Change to blue
-    else
-	data->color = 0xFF0000;        // Otherwise, go back to red
-*/
-	data->color = 0x00FA00;	    	
-    return (0);
-}
-
-/*int     button_press(int button, int x, int y, t_mlx *daata)
-{
-    if (button == 1)
-        printf("Left mouse button pressed at (%d, %d)!\n", x, y);
-    else if (button == 3)
-        printf("Right mouse button pressed at (%d, %d)!\n", x, y);
-
-    return (0);
-}
-
-int	handle_input(int keysym, t_mlx *daata)
-{
-    //Check the #defines
-    //find / -name keysym.h 2>/dev/null
-    //find / -name keysymdef.h 2>/dev/null
-    if (keysym == XK_Escape)
-    {
-        printf("The %d key (ESC) has been pressed\n\n", keysym);
-        mlx_destroy_window(daata->mlx_connection, daata->mlx_window);
-        mlx_destroy_display(daata->mlx_connection);
-        free(daata->mlx_connection);
-        exit(1);
-    }
-    printf("The %d key has been pressed\n\n", keysym);
-    return (0);
-}*/
 
 int	main()
 {
