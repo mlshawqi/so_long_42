@@ -7,20 +7,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #define MALLOC_ERROR	1
 #define WIDTH			400
 #define HEIGHT			400
 
-typedef struct	m_data{
-	void	*connection;
-	void	*window;
+typedef struct	m_data {
+	void	*mlx;
+	void	*win;
+	void	*background;
+	void	*wall;
+	void	*r_exit;
+	void	*player;
+	void	*collect;
+	void	*enemy;
 }				mlx_data;
 
-typedef struct	i_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				image_data;
+char	*get_next_line(int fd)

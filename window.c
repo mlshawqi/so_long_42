@@ -1,17 +1,4 @@
-/*#include "minilibx-linux/mlx.h"
-#include <X11/keysym.h>
-#include <X11/X.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-*/
-#include <mlx.h>
-typedef struct s_mlx
-{
-	void	*mlx_connection;
-	void	*mlx_window;
-	int	color;
-}	t_mlx;;
+#include "libsolong.h"
 
 int ft(int keysym, t_mlx *t)
 {
@@ -21,31 +8,62 @@ int ft(int keysym, t_mlx *t)
     return 1;
 }
 
+int chack_map(char *str, int *h, int *w)
+{
+    int i = 0;
+
+    while(str[i])
+    {
+        if(*w == 0 && str[i] == '1')
+        {
+            *w++;
+            i++;
+        }
+        else if(str[i] )
+        else
+            return (1);
+    }
+    return (0);
+}
 
 int	main()
 {
-	t_mlx	data;
-	int	size = 400;
-	int	sizeh = 400;
+	mlx_data	data;
+    int         fd;
+    char        *s;
+    int         height = 0;
+    int         width = 0;
 
-	data.mlx_connection = mlx_init();
-	if(data.mlx_connection == NULL)
+	data.mlx = mlx_init();
+    fd = open("maps/map.ber", O_RDONLY);
+	s = get_next_line(fd);
+    while(s != NULL)
+    {
+        if(check_map(s, &height, &width) == 1)
+            return (0,printf("map not valide"));
+        free(s);
+        s = get_next_line(s);
+    }
+
+    if(data.mlx == NULL)
 		return (0);
-	data.mlx_window = mlx_new_window(data.mlx_connection, size, sizeh, "my window");
-	if(data.mlx_window == NULL)
+    
+
+	data.win = mlx_new_window(data.mlx, size, sizeh, "my window");
+	if(data.win == NULL)
 	{
-		mlx_destroy_display(data.mlx_connection); // Cleanup MLX connection
-		free(data.mlx_connection);
+		mlx_destroy_display(data.mlx); // Cleanup MLX connection
+		free(data.mlx);
 		return (0);
 	}
 	data.color = 0xFA0000;
 
-	mlx_key_hook(data.mlx_window, ft, &data);
-	mlx_loop_hook(data.mlx_connection, change_color, &data);
-	mlx_loop(data.mlx_connection);
+	mlx_key_hook(data.win, ft, &data);
+	mlx_loop_hook(data.mlx, change_color, &data);
+	mlx_loop(data.mlx);
 
-	mlx_destroy_window(data.mlx_connection, data.mlx_window);
-        mlx_destroy_display(data.mlx_connection);
-	free(data.mlx_connection);
+	mlx_destroy_window(data.mlx, data.win);
+        mlx_destroy_display(data.mlx);
+	free(data.mlx);
         return (0);
 }

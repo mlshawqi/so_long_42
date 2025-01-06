@@ -37,12 +37,12 @@ int	main(void)
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 675, 675, "songul");
-	img = mlx_xpm_file_to_image(mlx, "back1.xpm", &img_width, &img_height);
-	wall = mlx_xpm_file_to_image(mlx, "rocket.xpm", &img_width, &img_height);
-	end = mlx_xpm_file_to_image(mlx, "burrow1.xpm", &img_width, &img_height);
-	player = mlx_xpm_file_to_image(mlx, "nrabbit1.xpm", &img_width, &img_height);
-	collect = mlx_xpm_file_to_image(mlx, "carrot1.xpm", &img_width, &img_height);
-	enemy = mlx_xpm_file_to_image(mlx, "enemy1.xpm", &img_width, &img_height);
+	img = mlx_xpm_file_to_image(mlx, "textures/back1.xpm", &img_width, &img_height);
+	wall = mlx_xpm_file_to_image(mlx, "textures/rocket.xpm", &img_width, &img_height);
+	end = mlx_xpm_file_to_image(mlx, "textures/burrow1.xpm", &img_width, &img_height);
+	player = mlx_xpm_file_to_image(mlx, "textures/nrabbit1.xpm", &img_width, &img_height);
+	collect = mlx_xpm_file_to_image(mlx, "textures/carrot1.xpm", &img_width, &img_height);
+	enemy = mlx_xpm_file_to_image(mlx, "textures/enemy1.xpm", &img_width, &img_height);
 	/*img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 				&img.endian);
 	*/
