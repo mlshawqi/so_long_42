@@ -1,69 +1,133 @@
 #include "libsolong.h"
+#include "git_next_line/get_next_line.h"
 
-int ft(int keysym, t_mlx *t)
+
+//gcc -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+
+int check_walls(char *str, int *w, int hght)
 {
-    printf("Pressed %d\n", keysym);
-    //sleep to appreciate loop_hook stopping
-    sleep(1);
-    return 1;
-}
+    int i;
+    int len;
+    int line;
 
-int chack_map(char *str, int *h, int *w)
-{
-    int i = 0;
-
-    while(str[i])
+    i = 0;
+    line = 0;
+    while(str[i] != '\0')
     {
-        if(*w == 0 && str[i] == '1')
+        len = 0;
+        line++;
+        while(str[i] != '\n' && str[i] != '\0')
         {
-            *w++;
+            if(*w == 0 || len == 0 || str[i + 1] == '\n' || line == hght)
+            {
+                if(str[i] != '1')
+                    return (1);
+            }
             i++;
+            len++;
         }
-        else if(str[i] )
-        else
-            return (1);
+        if(*w == 0)
+            *w += i;
+        i++;
     }
     return (0);
+}
+int check_pos(char *s, int widt)
+{
+    int i;
+    int line;
+    int c = 0;
+    int e = 0;
+    int p = 0;
+
+    i = 0;
+    while(s[i] != '\0')
+    {
+        line = 0;
+        while(s[i] != '\n' && s[i] != '\0')
+        {
+            if((s[i] == 'P' || s[i] == 'E' || s[i] == 'C') && (s[i + 1] == '1' && s[i - 1] == '1') 
+                                            && (s[i - widt - 1] == '1' && s[i + widt + 1] == '1'))
+                return (1);
+            if(s[i] == 'P')
+                p++;
+            if(s[i] == 'E')
+                e++;
+            if(s[i] == 'C')
+                c++;
+            line++;
+            i++;         
+        }
+        if(line != widt)
+            return (1);
+        i++;
+    }   
+    if(c == 0 || (p > 1  || p == 0) || (e > 1 || e == 0))
+        return (1);
+
+    return (0);
+}
+char    *check_map(int  *h, int *w)
+{
+    char    *str;
+    char    *tmp;
+    char    *line;
+    int     fd;
+
+    fd = open("maps/map.ber", O_RDONLY);
+	line = get_next_line(fd);
+    str = NULL;
+    while(line != NULL)
+    {
+        (*h)++;
+        tmp = str;
+        str = ft_strjoin(str, line); 
+        free(line);
+        free(tmp);
+        if(!str)
+        {
+            close(fd);
+            return (NULL);
+        }
+        line = get_next_line(fd);
+    }
+    close(fd);
+    if(check_walls(str, w, *h) == 1 || check_pos(str, *w))
+    {
+        free(str);
+        str = NULL;
+    }
+    return (str);
 }
 
 int	main()
 {
 	mlx_data	data;
-    int         fd;
-    char        *s;
+    char        *map;
     int         height = 0;
     int         width = 0;
 
-	data.mlx = mlx_init();
-    fd = open("maps/map.ber", O_RDONLY);
-	s = get_next_line(fd);
-    while(s != NULL)
+    map = check_map(&height, &width);
+    if(map == NULL)
     {
-        if(check_map(s, &height, &width) == 1)
-            return (0,printf("map not valide"));
-        free(s);
-        s = get_next_line(s);
+        printf("not valide %d  %d\n", height, width);
+        return (0);
     }
-
+    data.mlx = mlx_init();
     if(data.mlx == NULL)
-		return (0);
-    
-
-	data.win = mlx_new_window(data.mlx, size, sizeh, "my window");
+		return (0);    
+    data.win = mlx_new_window(data.mlx, width * 50, height * 50, "so_long");
 	if(data.win == NULL)
 	{
 		mlx_destroy_display(data.mlx); // Cleanup MLX connection
 		free(data.mlx);
 		return (0);
 	}
-	data.color = 0xFA0000;
-
-	mlx_key_hook(data.win, ft, &data);
-	mlx_loop_hook(data.mlx, change_color, &data);
+    
 	mlx_loop(data.mlx);
 
-	mlx_destroy_window(data.mlx, data.win);
-        mlx_destroy_display(data.mlx);
-	free(data.mlx);
-        return (0);
+	// mlx_destroy_window(data.mlx, data.win);
+    // mlx_destroy_display(data.mlx);
+	// free(data.mlx);
+    return (0);
 }
