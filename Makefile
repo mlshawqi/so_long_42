@@ -1,7 +1,8 @@
-NAME = window_program
+NAME = so_long
 
 # Source files
-SRCS = window.c \
+SRCS = window.c check_map.c libft.c \
+		put_images.c \
        git_next_line/get_next_line.c \
        git_next_line/get_next_line_utils.c
 
