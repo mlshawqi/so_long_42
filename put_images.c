@@ -9,10 +9,16 @@ void	put_images(mlx_data *d, char *s_map)
     i = 0;
 	d->background = mlx_xpm_file_to_image(d->mlx, "textures/back1.xpm", &img_width, &img_height);
 	d->wall = mlx_xpm_file_to_image(d->mlx, "textures/rocket.xpm", &img_width, &img_height);
-	d->r_exit = mlx_xpm_file_to_image(d->mlx, "textures/burrow2.xpm", &img_width, &img_height);
-	d->player = mlx_xpm_file_to_image(d->mlx, "textures/nrabbit1.xpm", &img_width, &img_height);
-	d->collect = mlx_xpm_file_to_image(d->mlx, "textures/carrot1.xpm", &img_width, &img_height);
-	d->enemy = mlx_xpm_file_to_image(d->mlx, "textures/enemy1.xpm", &img_width, &img_height);
+	d->r_exit[0] = mlx_xpm_file_to_image(d->mlx, "textures/burroww1.xpm", &img_width, &img_height);
+    d->r_exit[1] = mlx_xpm_file_to_image(d->mlx, "textures/burrow2.xpm", &img_width, &img_height);
+	d->player[0] = mlx_xpm_file_to_image(d->mlx, "textures/nrabbit1.xpm", &img_width, &img_height);
+    d->player[1] = mlx_xpm_file_to_image(d->mlx, "textures/nrabbit2.xpm", &img_width, &img_height);
+    d->player[2] = mlx_xpm_file_to_image(d->mlx, "textures/nrabbit3.xpm", &img_width, &img_height);
+    d->player[3] = mlx_xpm_file_to_image(d->mlx, "textures/nrabbit4.xpm", &img_width, &img_height);
+	d->collect[0] = mlx_xpm_file_to_image(d->mlx, "textures/carrot1.xpm", &img_width, &img_height);
+    d->collect[1] = mlx_xpm_file_to_image(d->mlx, "textures/carrot2.xpm", &img_width, &img_height);
+	d->enemy[0] = mlx_xpm_file_to_image(d->mlx, "textures/enemy1.xpm", &img_width, &img_height);
+    d->enemy[1] = mlx_xpm_file_to_image(d->mlx, "textures/enemy2.xpm", &img_width, &img_height);
 
     int x;
     int y = 0;

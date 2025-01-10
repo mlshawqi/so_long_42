@@ -1,8 +1,11 @@
 NAME = so_long
 
 # Source files
-SRCS = window.c check_map.c libft.c \
+SRCS = window.c check_map.c\
 		put_images.c \
+		libft/ft_split.c \
+		libft/ft_strcmp.c \
+		libft/ft_strlen.c \
        git_next_line/get_next_line.c \
        git_next_line/get_next_line_utils.c
 

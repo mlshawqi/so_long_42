@@ -6,8 +6,6 @@
 #include <unistd.h>
 
 typedef struct s_data {
-    void    *mlx;
-    void    *win;
     void    *frames[4]; // Array to store 4 animation frames
     int     current_frame;
     int     frame_count;
@@ -23,7 +21,7 @@ int animate(t_data *data) {
     counter = 0;
 
     // Clear the window (optional, depends on animation type)
-    mlx_clear_window(data->mlx, data->win);
+    // mlx_clear_window(data->mlx, data->win);
 
     // Display the current frame
     mlx_put_image_to_window(data->mlx, data->win, 
@@ -56,11 +54,18 @@ int main() {
 
     // Run the loop
     mlx_loop(data.mlx);
-
-    // Free resources (optional)
-    for (int i = 0; i < data.frame_count; i++)
-        mlx_destroy_image(data.mlx, data.frames[i]);
     mlx_destroy_window(data.mlx, data.win);
 
     return 0;
+}
+
+void    image_animate(int   size, char  *path,)
+{
+    int i;
+
+    i = 0;
+    while(i < size)
+    {
+        data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit1.xpm", &(int){0}, &(int){0});
+    }
 }

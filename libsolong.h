@@ -15,22 +15,40 @@ typedef struct	m_data {
 	void	*win;
 	void	*background;
 	void	*wall;
-	void	*r_exit;
-	void	*player;
-	void	*collect;
-	void	*enemy;
+	void	*r_exit[2];
+	void	*player[4];
+	void	*collect[2];
+	void	*enemy[2];
 }				mlx_data;
+
+typedef struct wall_data{
+	char	**map;
+	int		rows;
+	int		collumns;
+	int		collectable;
+	int		player;
+	int		exit;
+	int		enemy;
+	int 	p;
+    int 	c;
+    int 	e;
+	int		m;
+}			w_data;
 
 char	*get_next_line(int fd);
 char	*ft_strdup(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_str_len(char *s, int sing);
-char    *check_map(char *map, int  *h, int *w);
-int check_walls(char *str, int *w, int hght);
-int charcters(char *st);
-int check_pos(char *s, int widt);
-char    *full_str(int fd, int *hg);
-int	ft_strcmp(char *s1, char *s2);
+char    **check_map(char *path, w_data *data);
+int check_walls(char **map, int row, int colm);
+int 	charcters(w_data *wl);
+int 	p_position(char **s, int *x, int *y);
+// int check_pos(char *s, int widt);
+char    **full_str(int fd, w_data *w);
+void flood_fill(w_data *wl, int x, int y);
 void	put_images(mlx_data *d, char *s_map);
-
+char	**ft_split(char const *s, char c);
+int		ft_strlen(char *s);
+int		ft_strcmp(char *s1, char *s2);
+void	ft_free(char **str, int k);
 #endif
