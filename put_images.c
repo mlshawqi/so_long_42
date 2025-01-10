@@ -1,6 +1,6 @@
 #include "libsolong.h"
 
-void	put_images(mlx_data *d, char *s_map)
+void	put_images(mlx_data *d, char **s_map)
 {
 	int		img_width;
 	int		img_height;
@@ -22,25 +22,27 @@ void	put_images(mlx_data *d, char *s_map)
 
     int x;
     int y = 0;
-    while (s_map[i] != '\0')
+    int j;
+    while (s_map[i] != NULL)
     {
         x = 0;
-        while(s_map[i] != '\n' && s_map[i] != '\0')
+        j = 0;
+        while(s_map[i][j] != '\n' && s_map[i][j] != '\0')
         {
-            if(s_map[i] == '1')
+            if(s_map[i][j] == '1')
                 mlx_put_image_to_window(d->mlx, d->win, d->wall, x, y);
-            else if(s_map[i] == '0')
+            else if(s_map[i][j] == '0')
                 mlx_put_image_to_window(d->mlx, d->win, d->background, x, y);
-            else if(s_map[i] == 'P')
-                mlx_put_image_to_window(d->mlx, d->win, d->player, x, y);
-            else if(s_map[i] == 'C')
-                mlx_put_image_to_window(d->mlx, d->win, d->collect, x, y);
-            else if(s_map[i] == 'E')
-                mlx_put_image_to_window(d->mlx, d->win, d->r_exit, x ,y);
-            else if(s_map[i] == 'M')
-                mlx_put_image_to_window(d->mlx, d->win, d->enemy, x, y);
-            x += 50;
-            i++;         
+            else if(s_map[i][j] == 'P')
+                mlx_put_image_to_window(d->mlx, d->win, d->player[0], x, y);
+            else if(s_map[i][j] == 'C')
+                mlx_put_image_to_window(d->mlx, d->win, d->collect[0], x, y);
+            else if(s_map[i][j] == 'E')
+                mlx_put_image_to_window(d->mlx, d->win, d->r_exit[0], x ,y);
+            else if(s_map[i][j] == 'M')
+                mlx_put_image_to_window(d->mlx, d->win, d->enemy[0], x, y);
+            x += 50;  
+            j++;       
         }
         i++;
         y += 50;

@@ -25,26 +25,6 @@ int check_walls(char **map, int row, int colm)
     return (0);
 }
 
-void flood_fill(w_data *wl, int x, int y)
-{
-    if (x < 0 || y < 0 || x >= wl->rows || y >= wl->collumns || wl->map[x][y] == '1' || wl->map[x][y] == 'V') {
-        return;
-    }
-    if (wl->map[x][y] == 'C')
-        wl->collectable++;
-    else if (wl->map[x][y] == 'E')
-        wl->exit = 1;
-    if (wl->map[x][y] == 'P')
-        wl->player++;
-    wl->map[x][y] = 'V';
-    flood_fill(wl, x + 1, y); // Down
-    flood_fill(wl, x - 1, y); // Up
-    flood_fill(wl, x, y + 1); // Right
-    flood_fill(wl, x, y - 1); // Left
-}
-
-
-
 char    **full_str(int fd, w_data *w)
 {
     char    *str;
@@ -55,14 +35,15 @@ char    **full_str(int fd, w_data *w)
     line = get_next_line(fd);
     if(!line)
         return (NULL);
-    w->rows = ft_strlen(line) - 1; //1 for new line
+    w->collumns = ft_strlen(line) - 1; //1 for new line
     while(line != NULL)
     {
-        w->collumns++;
+         w->rows++;
         tmp = str;
         str = ft_strjoin(str, line); 
         free(line);
-        free(tmp);
+        if(line)
+            free(tmp);
         if(!str)
             return (NULL);
         line = get_next_line(fd);
@@ -70,14 +51,14 @@ char    **full_str(int fd, w_data *w)
     return (ft_split(str, '\n'));
 }
 
-int p_position(char **s, int *x, int *y)
+int p_position(char **s, w_data *w)
 {
     int i;
     int j;
 
     i = 0;
-    (*x) = -1;
-    (*y) = -1;
+    w->x = -1;
+    w->y = -1;
     while(s[i] != NULL)
     {
         j = 0;
@@ -85,20 +66,20 @@ int p_position(char **s, int *x, int *y)
         {
             if(s[i][j] == 'P')
             {
-                (*x) = i;
-                (*y) = j;
+                w->x = i;
+                w->y = j;
                 return (0);
             }
             j++;
         }
         i++;
     }
-    if((*x) == -1 || (*y) == -1)
+    if(w->x == -1 || w->y == -1)
         return (1);
     return (0);
 }
 
-int charcters(w_data *wl)
+int charcters(char **s, w_data *wl)
 {
     int i;
     int j;
@@ -107,16 +88,16 @@ int charcters(w_data *wl)
     wl->p = 0;
     wl->c = 0;
     wl->e = 0;
-    while(wl->map[i] != NULL)
+    while(s[i] != NULL)
     {
         j = 0;
-        while(wl->map[i][j] != '\0')
+        while(s[i][j] != '\0')
         {
-            if(wl->map[i][j] == 'P')
+            if(s[i][j] == 'P')
                 wl->p++;
-            if(wl->map[i][j] == 'E')
+            if(s[i][j] == 'E')
                 wl->e++;
-            if(wl->map[i][j] == 'C')
+            if(s[i][j] == 'C')
                 wl->c++;
             j++;
         }
@@ -130,8 +111,6 @@ int charcters(w_data *wl)
 char    **check_map(char *path, w_data *data)
 {
     int     fd;
-    int x;
-    int y;
     char **arr;
 
     fd = open(path, O_RDONLY);
@@ -141,19 +120,11 @@ char    **check_map(char *path, w_data *data)
     close(fd);
     if(!arr)
         return (NULL);
-    if(check_walls(arr, data->rows, data->collumns) == 1 || p_position(arr, &x, &y) == 1 || charcters(data))
+    if(check_walls(arr, data->rows, data->collumns) == 1 || p_position(arr, data) == 1 || charcters(arr, data))
     {
         ft_free(arr, data->collumns);// you should free all array
         return (NULL);
     }
-    flood_fill(data, x, y);
-    if(data->collectable != data->c || data->exit != data->e || data->player != data->p)
-    {
-        printf("here");
-        ft_free(arr, data->collumns);
-        
-    }
-        
     return (arr);
 }
 

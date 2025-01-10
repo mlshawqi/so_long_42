@@ -33,6 +33,8 @@ typedef struct wall_data{
     int 	c;
     int 	e;
 	int		m;
+	int 	x;
+	int 	y;
 }			w_data;
 
 char	*get_next_line(int fd);
@@ -41,12 +43,12 @@ char	*ft_strjoin(char *s1, char *s2);
 int		ft_str_len(char *s, int sing);
 char    **check_map(char *path, w_data *data);
 int check_walls(char **map, int row, int colm);
-int 	charcters(w_data *wl);
-int 	p_position(char **s, int *x, int *y);
+int 	charcters(char **s, w_data *wl);
+int p_position(char **s, w_data *w);
 // int check_pos(char *s, int widt);
-char    **full_str(int fd, w_data *w);
-void flood_fill(w_data *wl, int x, int y);
-void	put_images(mlx_data *d, char *s_map);
+// char    **full_str(int fd, w_data *w);
+// void flood_fill(char **str, w_data *wl, int x, int y);
+void	put_images(mlx_data *d, char **s_map);
 char	**ft_split(char const *s, char c);
 int		ft_strlen(char *s);
 int		ft_strcmp(char *s1, char *s2);
