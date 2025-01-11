@@ -2,22 +2,22 @@
 #include "git_next_line/get_next_line.h"
 #include "libft/libft.h"
 
-int check_walls(char **map, int row, int colm)
+int check_walls(char **map, int w, int h)
 {
     int i;
     int j;
 
     i = 0;
     j = 0;
-    while(j < colm)
+    while(j < w)
     {
-        if (map[0][j] != '1' || map[row - 1][j] != '1')
-            return (1); // Invalid if top or bottom row has a non-wall
+        if (map[0][j] != '1' || map[h - 1][j] != '1')
+            return (1); // Invalid if top or bottom w has a non-wall
         j++;
     }
-    while(i < row)
+    while(i < h)
     {
-        if(map[i][0] != '1' || map[i][colm - 1] != '1')
+        if(map[i][0] != '1' || map[i][w - 1] != '1')
             return (1); // Invalid if left or right column has a non-wall
         i++;
     }
@@ -35,10 +35,10 @@ char    **full_str(int fd, w_data *w)
     line = get_next_line(fd);
     if(!line)
         return (NULL);
-    w->collumns = ft_strlen(line) - 1; //1 for new line
+    w->width = ft_strlen(line) - 1; //1 for new line
     while(line != NULL)
     {
-         w->rows++;
+         w->height++;
         tmp = str;
         str = ft_strjoin(str, line); 
         free(line);
@@ -120,9 +120,9 @@ char    **check_map(char *path, w_data *data)
     close(fd);
     if(!arr)
         return (NULL);
-    if(check_walls(arr, data->rows, data->collumns) == 1 || p_position(arr, data) == 1 || charcters(arr, data))
+    if(check_walls(arr, data->width, data->height) == 1 || p_position(arr, data) == 1 || charcters(arr, data))
     {
-        ft_free(arr, data->collumns);// you should free all array
+        ft_free(arr, data->height);// you should free all array
         return (NULL);
     }
     return (arr);

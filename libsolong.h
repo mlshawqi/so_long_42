@@ -23,8 +23,9 @@ typedef struct	m_data {
 
 typedef struct wall_data{
 	char	**map;
-	int		rows;
-	int		collumns;
+	char	**map_copy;
+	int		width;
+	int		height;
 	int		collectable;
 	int		player;
 	int		exit;
@@ -42,7 +43,7 @@ char	*ft_strdup(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_str_len(char *s, int sing);
 char    **check_map(char *path, w_data *data);
-int check_walls(char **map, int row, int colm);
+int check_walls(char **map, int w, int h);
 int 	charcters(char **s, w_data *wl);
 int p_position(char **s, w_data *w);
 // int check_pos(char *s, int widt);
