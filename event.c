@@ -1,42 +1,41 @@
-#include "minilibx-linux/mlx.h"
-#include <X11/keysym.h>
-#include <X11/X.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "libsolong.h"
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-}				t_vars;
+#define ESCAPE 65307
+#define KEY_LEFT 65361
+#define KEY_RIGHT 65363
+#define KEY_UP 65362
+#define KEY_DOWN 65364
+#define KEYPress 2
+#define KEYPRESSMask 1L<<0
 
-int	ft_close(int keycode, t_vars *vars)
+
+int	ft_close(int keycode, mlx_data *vars)
 {
-	if (keycode == XK_Escape) // Escape key
+	if (keycode == ESCAPE) // Escape key
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
-	else if (keycode == XK_Left)
+	else if (keycode == KEY_LEFT)
 		printf("Left key pressed\n");
-	else if (keycode == XK_Up) // Up arrow key
+	else if (keycode == KEY_UP) // Up arrow key
 		printf("Up key pressed\n");
-	else if (keycode == XK_Right) // Right arrow key
+	else if (keycode == KEY_RIGHT) // Right arrow key
 		printf("Right key pressed\n");
-	else if (keycode == XK_Down) // Down arrow key
+	else if (keycode == KEY_DOWN) // Down arrow key
 		printf("Down key pressed\n");
 	return (0);
 }
 
-int	main(void)
-{
-	t_vars	vars;
+// int	main(void)
+// {
+// 	t_vars	vars;
 
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 300, 300, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
-	mlx_loop(vars.mlx);
-}
+// 	vars.mlx = mlx_init();
+// 	vars.win = mlx_new_window(vars.mlx, 300, 300, "Hello world!");
+// 	mlx_hook(vars.win, KEYPress, KEYPRESSMask, ft_close, &vars);
+// 	mlx_loop(vars.mlx);
+// }
 
 // #include <stdio.h>
 

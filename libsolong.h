@@ -10,6 +10,14 @@
 #include <fcntl.h>
 #include <string.h>
 
+#define ESCAPE 65307
+#define KEY_LEFT 65361
+#define KEY_RIGHT 65363
+#define KEY_UP 65362
+#define KEY_DOWN 65364
+#define KEYPress 2
+#define KEYPRESSMask 1L<<0
+
 typedef struct	s_mlx {
 	void	*mlx;
 	void	*win;
@@ -19,6 +27,8 @@ typedef struct	s_mlx {
 	void	*player[4];
 	void	*collect[2];
 	void	*enemy[2];
+	
+
 }				mlx_data;
 
 typedef struct s_map{
@@ -29,7 +39,7 @@ typedef struct s_map{
 	int		collectable;
 	int		player;
 	int		exit;
-	int		enemy;
+	int		enemy;	
 	int 	p;
     int 	c;
     int 	e;

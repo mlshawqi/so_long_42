@@ -5,6 +5,29 @@
 
 //gcc -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 
+int ft_fun(mlx_data *d_fun)
+{
+    put_images(data);
+}
+
+int	ft_close(int keycode, mlx_data *vars)
+{
+	if (keycode == ESCAPE) // Escape key
+	{
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+	}
+	else if (keycode == KEY_LEFT)
+		printf("Left key pressed\n");
+	else if (keycode == KEY_UP) // Up arrow key
+		printf("Up key pressed\n");
+	else if (keycode == KEY_RIGHT) // Right arrow key
+		printf("Right key pressed\n");
+	else if (keycode == KEY_DOWN) // Down arrow key
+		printf("Down key pressed\n");
+	return (0);
+}
+
 int ber_extension(char *str)
 {
     int len;
@@ -106,7 +129,8 @@ int	main(int argc, char *argv[])
             return (0);
         }
         put_images(&data, d_wall.map);
-        mlx_string_put(data.mlx, data.win, 100, 100, 0xFF0000, "hello 32");
+        //mlx_string_put(data.mlx, data.win, 100, 100, 0xFF0000, "hello 32");
+        mlx_loop_hook(data.mlx, ft_fun, &data);
         mlx_loop(data.mlx);
 
         mlx_destroy_window(data.mlx, data.win);
