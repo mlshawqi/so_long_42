@@ -6,7 +6,9 @@
 #include <unistd.h>
 
 typedef struct s_data {
-    void    *frames[4]; // Array to store 4 animation frames
+    void    *mlx;
+    void    *win;
+    void    *frames[2]; // Array to store 4 animation frames
     int     current_frame;
     int     frame_count;
 } t_data;
@@ -16,9 +18,9 @@ int animate(t_data *data) {
     static int counter = 0;
 
     // Control animation speed (e.g., update every 10 frames)
-    if (counter++ < 1900)
-        return 0;
-    counter = 0;
+        if (counter++ < 1900)
+            return 0;
+        counter = 0;
 
     // Clear the window (optional, depends on animation type)
     // mlx_clear_window(data->mlx, data->win);
@@ -42,11 +44,11 @@ int main() {
     data.win = mlx_new_window(data.mlx, 800, 600, "Animation");
 
     // Load frames (you need .xpm files for this example)
-    data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit1.xpm", &(int){0}, &(int){0});
-    data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit2.xpm", &(int){0}, &(int){0});
-    data.frames[2] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit3.xpm", &(int){0}, &(int){0});
-    data.frames[3] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit4.xpm", &(int){0}, &(int){0}); 
-    data.frame_count = 4; // Update frame count
+    data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/enemy1.xpm", &(int){0}, &(int){0});
+    data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/enemy22.xpm", &(int){0}, &(int){0});
+    // data.frames[2] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit3.xpm", &(int){0}, &(int){0});
+    // data.frames[3] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit4.xpm", &(int){0}, &(int){0}); 
+    data.frame_count = 2; // Update frame count
     data.current_frame = 0;
 
     // Hook the animation function to the main loop
@@ -59,13 +61,13 @@ int main() {
     return 0;
 }
 
-void    image_animate(int   size, char  *path,)
-{
-    int i;
+// void    image_animate(int   size, char  *path,)
+// {
+//     int i;
 
-    i = 0;
-    while(i < size)
-    {
-        data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit1.xpm", &(int){0}, &(int){0});
-    }
-}
+//     i = 0;
+//     while(i < size)
+//     {
+//         data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit1.xpm", &(int){0}, &(int){0});
+//     }
+// }

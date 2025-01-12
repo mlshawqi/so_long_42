@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-typedef struct	m_data {
+typedef struct	s_mlx {
 	void	*mlx;
 	void	*win;
 	void	*background;
@@ -21,7 +21,7 @@ typedef struct	m_data {
 	void	*enemy[2];
 }				mlx_data;
 
-typedef struct wall_data{
+typedef struct s_map{
 	char	**map;
 	char	**map_copy;
 	int		width;

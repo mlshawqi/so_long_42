@@ -40,15 +40,20 @@ char    **copy_map(char **arr, int size)
 
 void flood_fill(char **str, w_data *wl, int x, int y)
 {
-    if (x < 0 || y < 0 || x >= wl->width || y >= wl->height || str[x][y] == '1' || str[x][y] == 'V') {
+    if (x < 0 || y < 0 || y >= wl->width || x >= wl->height || str[x][y] == '1' || str[x][y] == 'M' || str[x][y] == 'V') {
         return;
     }
     if (str[x][y] == 'C')
         wl->collectable++;
     else if (str[x][y] == 'E')
         wl->exit = 1;
-    if (str[x][y] == 'P')
+    else if (str[x][y] == 'P')
         wl->player++;
+    else if(str[x][y] != '0')
+    {
+        ft_free(wl->map, wl->height);
+        exit(0);
+    }
     str[x][y] = 'V';
     flood_fill(str, wl, x + 1, y); // Down
     flood_fill(str, wl, x - 1, y); // Up
@@ -84,23 +89,24 @@ int	main(int argc, char *argv[])
         // printf("%s\n", d_wall.map_copy[0]);
         // printf("%s %d", d_wall.map[0], d_wall.height);
         flood_fill(d_wall.map_copy, &d_wall, d_wall.x, d_wall.y);
-        printf("c%d c%d\ne%d e%d\np%dp%d\n", d_wall.collectable, d_wall.c, d_wall.exit, d_wall.e, d_wall.player, d_wall.p);
-        // if(d_wall.collectable != d_wall.c || d_wall.exit != d_wall.e || d_wall.player != d_wall.p)
-        // {
-        //     ft_free(d_wall.map, d_wall.height);
-        //     return (0);
-        // }
+        // printf("c%d c%d\ne%d e%d\np%dp%d\n", d_wall.collectable, d_wall.c, d_wall.exit, d_wall.e, d_wall.player, d_wall.p);
+        if(d_wall.collectable != d_wall.c || d_wall.exit != d_wall.e || d_wall.player != d_wall.p)
+        {
+            ft_free(d_wall.map, d_wall.height);
+            return (0);
+        }
         data.mlx = mlx_init();
         if(data.mlx == NULL)
              return (0);
-        data.win = mlx_new_window(data.mlx, 10000, 10000, "so_long");
+        data.win = mlx_new_window(data.mlx, d_wall.width* 50, d_wall.height * 50, "so_long");
         if(data.win == NULL)
         {
             mlx_destroy_display(data.mlx); // Cleanup MLX connection
             free(data.mlx);
             return (0);
         }
-        // put_images(&data, d_wall.map);
+        put_images(&data, d_wall.map);
+        mlx_string_put(data.mlx, data.win, 100, 100, 0xFF0000, "hello 32");
         mlx_loop(data.mlx);
 
         mlx_destroy_window(data.mlx, data.win);
