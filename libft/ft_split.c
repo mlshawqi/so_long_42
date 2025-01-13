@@ -39,12 +39,15 @@ static char	*ft_strndup(char *s, int n)
 	return (str);
 }
 
-void	ft_free(char **str, int k)
+void	ft_free(char **str)
 {
-	while (k >= 0)
+	int k;
+
+	k = 0;
+	while (str[k] != NULL)
 	{
 		free(str[k]);
-		k--;
+		k++;
 	}
 	free(str);
 	return ;
@@ -68,7 +71,7 @@ static char	**ft_tosplit(char *s, char **str, char c, int len)
 			str[k] = ft_strndup(s, tlen);
 			if (!str[k])
 			{
-				ft_free(str, k);
+				ft_free(str);
 				return (NULL);
 			}
 			s += tlen;

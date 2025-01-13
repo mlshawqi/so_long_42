@@ -1,13 +1,13 @@
-NAME = my_game
+NAME = so_long
 
 # Source files
-SRCS = main.c check_map.c check2_map.c\
+SRCS = window.c check_map.c\
+		put_images.c \
+		libft/ft_split.c \
 		libft/ft_strcmp.c \
 		libft/ft_strlen.c \
-		libft/ft_calloc.c \
-		libft/ft_split.c  libft/ft_bzero.c \
-       gnl/get_next_line.c \
-       gnl/get_next_line_utils.c
+       git_next_line/get_next_line.c \
+       git_next_line/get_next_line_utils.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

@@ -137,8 +137,3 @@ int main(int argc, char *argv[])
     return (0);
 }
 
-/*
-flood fill almost done just need to pass copy of map
-and put image also almost done just need to add animation or what it call
-and movment huh'tbh i dont think you're gonna finish this in 2days malika, and with fasting huhhh'
-*/
