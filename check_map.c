@@ -25,7 +25,7 @@ int check_walls(char **map, int w, int h)
     return (0);
 }
 
-char    **full_str(int fd, w_data *w)
+char    **full_str(int fd, mlx_data *w)
 {
     char    *str;
     char    *tmp;
@@ -51,7 +51,7 @@ char    **full_str(int fd, w_data *w)
     return (ft_split(str, '\n'));
 }
 
-int p_position(char **s, w_data *w)
+int p_position(char **s, mlx_data *w)
 {
     int i;
     int j;
@@ -79,7 +79,7 @@ int p_position(char **s, w_data *w)
     return (0);
 }
 
-int charcters(char **s, w_data *wl)
+int charcters(char **s, mlx_data *wl)
 {
     int i;
     int j;
@@ -108,7 +108,7 @@ int charcters(char **s, w_data *wl)
     return (0);
 }
 
-char    **check_map(char *path, w_data *data)
+char    **check_map(char *path, mlx_data *data)
 {
     int     fd;
     char **arr;

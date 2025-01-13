@@ -2,30 +2,25 @@
 #include "git_next_line/get_next_line.h"
 #include "libft/libft.h"
 
+// gcc -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 
-//gcc -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 
-int ft_fun(mlx_data *d_fun)
+int ft_close(int keycode, mlx_data *vars)
 {
-    put_images(data);
-}
-
-int	ft_close(int keycode, mlx_data *vars)
-{
-	if (keycode == ESCAPE) // Escape key
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(0);
-	}
-	else if (keycode == KEY_LEFT)
-		printf("Left key pressed\n");
-	else if (keycode == KEY_UP) // Up arrow key
-		printf("Up key pressed\n");
-	else if (keycode == KEY_RIGHT) // Right arrow key
-		printf("Right key pressed\n");
-	else if (keycode == KEY_DOWN) // Down arrow key
-		printf("Down key pressed\n");
-	return (0);
+    if (keycode == ESCAPE) // Escape key
+    {
+        mlx_destroy_window(vars->mlx, vars->win);
+        exit(0);
+    }
+    else if (keycode == KEY_LEFT)
+        printf("Left key pressed\n");
+    else if (keycode == KEY_UP) // Up arrow key
+        printf("Up key pressed\n");
+    else if (keycode == KEY_RIGHT) // Right arrow key
+        printf("Right key pressed\n");
+    else if (keycode == KEY_DOWN) // Down arrow key
+        printf("Down key pressed\n");
+    return (0);
 }
 
 int ber_extension(char *str)
@@ -33,24 +28,24 @@ int ber_extension(char *str)
     int len;
 
     len = ft_strlen(str);
-    if(ft_strcmp(str + (len - 4), ".ber") != 0)
+    if (ft_strcmp(str + (len - 4), ".ber") != 0)
         return (1);
     return (0);
 }
 
-char    **copy_map(char **arr, int size)
+char **copy_map(char **arr, int size)
 {
-    char    **str;
+    char **str;
     int i;
 
     str = malloc(sizeof(char *) * (size + 1));
-    if(!str)
+    if (!str)
         return (NULL);
     i = 0;
-    while(i < size)
+    while (i < size)
     {
         str[i] = strdup(arr[i]);
-        if(!str[i])
+        if (!str[i])
         {
             ft_free(str, i);
             return (NULL);
@@ -61,9 +56,10 @@ char    **copy_map(char **arr, int size)
     return (str);
 }
 
-void flood_fill(char **str, w_data *wl, int x, int y)
+void flood_fill(char **str, mlx_data *wl, int x, int y)
 {
-    if (x < 0 || y < 0 || y >= wl->width || x >= wl->height || str[x][y] == '1' || str[x][y] == 'M' || str[x][y] == 'V') {
+    if (x < 0 || y < 0 || y >= wl->width || x >= wl->height || str[x][y] == '1' || str[x][y] == 'M' || str[x][y] == 'V')
+    {
         return;
     }
     if (str[x][y] == 'C')
@@ -72,7 +68,7 @@ void flood_fill(char **str, w_data *wl, int x, int y)
         wl->exit = 1;
     else if (str[x][y] == 'P')
         wl->player++;
-    else if(str[x][y] != '0')
+    else if (str[x][y] != '0')
     {
         ft_free(wl->map, wl->height);
         exit(0);
@@ -84,54 +80,53 @@ void flood_fill(char **str, w_data *wl, int x, int y)
     flood_fill(str, wl, x, y - 1); // Left
 }
 
-int	main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-	mlx_data	data;
-    w_data      d_wall;
+    mlx_data data;
 
-    d_wall.height = 0;
-    d_wall.width = 0;
-    d_wall.collectable = 0;
-    d_wall.player = 0;
-    d_wall.exit = 0;
-    if(argc == 2 && ber_extension(argv[1]) == 0)
+    data.height = 0;
+    data.width = 0;
+    data.collectable = 0;
+    data.player = 0;
+    data.exit = 0;
+    if (argc == 2 && ber_extension(argv[1]) == 0)
     {
-        
-        d_wall.map = check_map(argv[1], &d_wall);
-        if(d_wall.map == NULL)
+
+        data.map = check_map(argv[1], &data);
+        if (data.map == NULL)
         {
-            printf("not valide %d  %d\n", d_wall.height, d_wall.width);
+            printf("not valide %d  %d\n", data.height, data.width);
             return (0);
         }
-        d_wall.map_copy = copy_map(d_wall.map, d_wall.height);
-        if(d_wall.map_copy == NULL)
+        data.map_copy = copy_map(data.map, data.height);
+        if (data.map_copy == NULL)
         {
-            ft_free(d_wall.map, d_wall.height);
+            ft_free(data.map, data.height);
             return (0);
         }
-        // printf("%s\n", d_wall.map_copy[0]);
-        // printf("%s %d", d_wall.map[0], d_wall.height);
-        flood_fill(d_wall.map_copy, &d_wall, d_wall.x, d_wall.y);
-        // printf("c%d c%d\ne%d e%d\np%dp%d\n", d_wall.collectable, d_wall.c, d_wall.exit, d_wall.e, d_wall.player, d_wall.p);
-        if(d_wall.collectable != d_wall.c || d_wall.exit != d_wall.e || d_wall.player != d_wall.p)
+        // printf("%s\n", data.map_copy[0]);
+        // printf("%s %d", data.map[0], data.height);
+        flood_fill(data.map_copy, &data, data.x, data.y);
+        // printf("c%d c%d\ne%d e%d\np%dp%d\n", data.collectable, data.c, data.exit, data.e, data.player, data.p);
+        if (data.collectable != data.c || data.exit != data.e || data.player != data.p)
         {
-            ft_free(d_wall.map, d_wall.height);
+            ft_free(data.map, data.height);
             return (0);
         }
         data.mlx = mlx_init();
-        if(data.mlx == NULL)
-             return (0);
-        data.win = mlx_new_window(data.mlx, d_wall.width* 50, d_wall.height * 50, "so_long");
-        if(data.win == NULL)
+        if (data.mlx == NULL)
+            return (0);
+        data.win = mlx_new_window(data.mlx, data.width * 50, data.height * 50, "so_long");
+        if (data.win == NULL)
         {
             mlx_destroy_display(data.mlx); // Cleanup MLX connection
             free(data.mlx);
             return (0);
         }
-        put_images(&data, d_wall.map);
-        //mlx_string_put(data.mlx, data.win, 100, 100, 0xFF0000, "hello 32");
-        mlx_loop_hook(data.mlx, ft_fun, &data);
-        mlx_loop(data.mlx);
+        //put_images(&data);
+        // mlx_string_put(data.mlx, data.win, 100, 100, 0xFF0000, "hello 32");
+        mlx_loop_hook(data.mlx, put_images, &data);
+        //mlx_loop(data.mlx);
 
         mlx_destroy_window(data.mlx, data.win);
         mlx_destroy_display(data.mlx);
@@ -141,7 +136,6 @@ int	main(int argc, char *argv[])
         printf("didnt entre");
     return (0);
 }
-
 
 /*
 flood fill almost done just need to pass copy of map
