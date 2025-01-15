@@ -106,13 +106,13 @@ int main(int argc, char *argv[])
         }
         // printf("%s\n", data.map_copy[0]);
         // printf("%s %d", data.map[0], data.height);
-        flood_fill(data.map_copy, &data, data.x, data.y);
-        // printf("c%d c%d\ne%d e%d\np%dp%d\n", data.collectable, data.c, data.exit, data.e, data.player, data.p);
-        if (data.collectable != data.c || data.exit != data.e || data.player != data.p)
-        {
-            ft_free(data.map, data.height);
-            return (0);
-        }
+        // flood_fill(data.map_copy, &data, data.x, data.y);
+        // // printf("c%d c%d\ne%d e%d\np%dp%d\n", data.collectable, data.c, data.exit, data.e, data.player, data.p);
+        // if (data.collectable != data.c || data.exit != data.e || data.player != data.p)
+        // {
+        //     ft_free(data.map, data.height);
+        //     return (0);
+        // }
         data.mlx = mlx_init();
         if (data.mlx == NULL)
             return (0);
@@ -123,7 +123,7 @@ int main(int argc, char *argv[])
             free(data.mlx);
             return (0);
         }
-        //put_images(&data);
+        put_images(&data, data.);
         // mlx_string_put(data.mlx, data.win, 100, 100, 0xFF0000, "hello 32");
         mlx_loop_hook(data.mlx, put_images, &data);
         //mlx_loop(data.mlx);

@@ -56,3 +56,18 @@ void    check2_map(t_data *data)
         ft_error(data, "The map has isolated areas that are inaccessible.\n", 1);
     ft_free(map_copy);
 }
+
+void    check_path(t_data *g, int argc, char *argv[])
+{
+    int len;
+
+    if(argc == 2)
+    {
+        len = ft_strlen(argv[1]);
+        if (ft_strcmp(argv[1] + (len - 4), ".ber") != 0 || open(argv[1], O_RDONLY) < 0)
+            ft_error(g, "wrong extension '_'\n", 0);
+        g->path = ft_strdup(argv[1]);   
+    }
+    else
+        ft_error(g, "Need argv[1]\n", 0);
+}

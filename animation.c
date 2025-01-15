@@ -18,7 +18,7 @@ int animate(t_data *data) {
     static int counter = 0;
 
     // Control animation speed (e.g., update every 10 frames)
-        if (counter++ < 1900)
+        if (counter++ < 3900)
             return 0;
         counter = 0;
 
@@ -44,10 +44,10 @@ int main() {
     data.win = mlx_new_window(data.mlx, 800, 600, "Animation");
 
     // Load frames (you need .xpm files for this example)
-    data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/enemy1.xpm", &(int){0}, &(int){0});
-    data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/enemy22.xpm", &(int){0}, &(int){0});
-    // data.frames[2] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit3.xpm", &(int){0}, &(int){0});
-    // data.frames[3] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit4.xpm", &(int){0}, &(int){0}); 
+    data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/butterfly1.xpm", &(int){0}, &(int){0});
+    data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/butterfly2.xpm", &(int){0}, &(int){0});
+    // data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/flore1.xpm", &(int){0}, &(int){0});
+    // data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/flore2.xpm", &(int){0}, &(int){0}); 
     data.frame_count = 2; // Update frame count
     data.current_frame = 0;
 

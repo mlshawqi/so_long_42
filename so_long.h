@@ -29,6 +29,15 @@ typedef struct s_data
     int     p;
     int     c;
     int     e;
+    void    *i_background;
+    void    *i_wall;
+    void    *i_exit;
+    void    *i_player;
+    void    *i_collectable;
+    void    *frame_player[2];
+    void    *frame_collectable[2];
+    void    *frame_enemy[2];
+    int     current_frame;
 }           t_data;
 
 
@@ -44,6 +53,8 @@ void    check2_map(t_data *data);
 void flood_fill(char **str, t_data *wl, int x, int y);
 char    **copy_map(char **arr, int size);
 void    ft_destroy(t_data *d);
-
+void	put_images(t_data *d);
+void load_animation(t_data *data);
+int animate(t_data *anim);
 
 #endif
