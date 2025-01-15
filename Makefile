@@ -2,8 +2,8 @@ NAME = my_game
 
 # Source files
 SRCS = main.c check_map.c check2_map.c\
-		 put_images.c ex_animition.c\
-		libft/ft_strcmp.c \
+		 put_images.c ex_animition.c event.c\
+		libft/ft_strcmp.c libft/ft_itoa.c\
 		libft/ft_strlen.c \
 		libft/ft_calloc.c \
 		libft/ft_split.c  libft/ft_bzero.c \

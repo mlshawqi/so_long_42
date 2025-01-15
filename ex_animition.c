@@ -39,17 +39,21 @@ void load_animation(t_data *data)
 
 int animate(t_data *anim)
 {
-    int counter = 0;
+    static int counter = 2500;
     int i;
     int j;
-    int x = 0;
+    int x;
     int y;
 
+    if (counter++ < 2500)
+        return 0;
+    counter = 0;
     i = 0;
+    y = 0;
     while(anim->map[i] != NULL)
     {
         j = 0;
-        y = 0;
+        x = 0;
         while(anim->map[i][j] != '\0' && anim->map[i][j] != '\n')
         {
             if(anim->map[i][j] == 'P')
@@ -59,17 +63,24 @@ int animate(t_data *anim)
             else if(anim->map[i][j] == 'M')
                 mlx_put_image_to_window(anim->mlx, anim->win, anim->frame_enemy[anim->current_frame], x, y);
             j++;
-            y += 50;
+            x += 50;
         }
         i++;
-        x += 50;
+        y += 50;
     }
     anim->current_frame = (anim->current_frame + 1) % 2;
-    while(counter < 1)
-        counter++;
+ 
     return 0;
 }
-
+void    ft_draw_map(t_data *game)
+{
+    load_image(game);
+    put_images(game);
+    load_animation(game);
+    game->n_move = ft_strjoin("movement : ", ft_itoa(game->movement));
+    mlx_string_put(game->mlx, game->win, 20, 20, 0xFF0000, game->n_move);
+    mlx_loop_hook(game->mlx, animate, game);
+}
 // void load_animation(t_data *data, int anim_index, char **frame_paths, int frame_count, int x, int y)
 // {
 //     t_animation *anim = &data->animations[anim_index];

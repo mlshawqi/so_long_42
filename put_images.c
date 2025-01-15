@@ -126,7 +126,7 @@
 
 //__________________________________________________________________________________________
 
-void    file_to_image(t_data *data)
+void    load_image(t_data *data)
 {
     data->i_background = mlx_xpm_file_to_image(data->mlx, "textures/background.xpm", &(int){0}, &(int){0});
     if(!data->i_background)
@@ -147,7 +147,6 @@ void	put_images(t_data *d)
     int     j;
 
     i = 0;
-    file_to_image(d);
     y = 0;
     while (d->map[i] != NULL)
     {
@@ -167,5 +166,5 @@ void	put_images(t_data *d)
         i++;
         y += 50;
     }
-	mlx_loop(d->mlx);	
+	//mlx_loop(d->mlx);	
 }

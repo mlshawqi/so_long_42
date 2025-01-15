@@ -17,6 +17,16 @@ void    ft_destroy(t_data *d)
     ft_free(d->map);
     exit(0);
 }
+void    ft_msg_destroy(t_data *data, char *msg)
+{
+    write(1, msg, ft_strlen(msg));
+    if(data->win)
+        mlx_destroy_window(data->mlx, data->win);
+    mlx_destroy_display(data->mlx);
+    free(data->mlx);
+    ft_free(data->map);
+    exit(0);
+}
 int main(int argc, char *argv[])
 {
     t_data game;
@@ -29,10 +39,11 @@ int main(int argc, char *argv[])
     game.win = mlx_new_window(game.mlx, game.width * 50, game.height * 50, "swan");
     if (game.win == NULL)
         ft_destroy(&game);
-    put_images(&game);
-    load_animation(&game);
-    mlx_loop_hook(game.mlx, animate, &game);
+    ft_draw_map(&game);
+    game.movement = 0;
+    game.collecting = 0;
+    mlx_hook(game.win, 2, 1L<<0, ft_close, &game);
     mlx_loop(game.mlx);
 
-    //printf("nice ");
+    printf("nice ");
 }

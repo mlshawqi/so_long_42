@@ -1,6 +1,4 @@
 #include "so_long.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
 
 void    check_walls(t_data *walls)
 {
@@ -119,6 +117,7 @@ void    check_map(t_data *dt)
     fd = open(dt->path, O_RDONLY);
     if(fd < 0)
         ft_error(dt, "can't open the file!\n", 0);
+    dt->height = 0;
     save_map(fd, dt);
     close(fd);
     check_walls(dt);
