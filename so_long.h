@@ -42,13 +42,15 @@ typedef struct s_data
     void    *i_player;
     void    *i_collectable;
     void    *i_enemy;
-    void    *frame_player[2];
+    void    *f_player_r[2];
+    void    *f_player_l[2];
     void    *frame_collectable[2];
     void    *frame_enemy[2];
     int     current_frame;
     int     movement;
     char    *n_move;
     int     collecting;
+    int     butterfly_r;
 }           t_data;
 
 
@@ -74,5 +76,6 @@ int	    ft_close(int keycode, t_data *vars);
 void    ft_draw_map(t_data *game);
 void    load_image(t_data *data);
 char	*ft_itoa(int n);
-
+void    ft_load_player(t_data *data);
+void    put_player_image(t_data *swan, int x, int y);
 #endif
