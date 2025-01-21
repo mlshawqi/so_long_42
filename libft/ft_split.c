@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: machaouk <marvin@42.fr>                    #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-01-16 19:33:48 by machaouk          #+#    #+#             */
+/*   Updated: 2025/01/16 21:16:22 by machaouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static int	ft_count(char const *s, char c)
@@ -41,10 +53,10 @@ static char	*ft_strndup(char *s, int n)
 
 void	ft_free(char **str)
 {
-	int k;
+	int	k;
 
 	k = 0;
-	while (str[k] != NULL)
+	while (str && str[k] != NULL)
 	{
 		free(str[k]);
 		k++;

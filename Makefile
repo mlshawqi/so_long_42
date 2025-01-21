@@ -1,41 +1,32 @@
-NAME = my_game
+NAME = so_long
 
-# Source files
-SRCS = main.c check_map.c check2_map.c\
-		 put_images.c ex_animition.c event.c\
-		libft/ft_strcmp.c libft/ft_itoa.c\
-		libft/ft_strlen.c \
-		libft/ft_calloc.c \
-		libft/ft_split.c  libft/ft_bzero.c \
+SRCS = main.c check_map.c check2_map.c error.c\
+	load_images.c animation.c event.c ft_map.c\
+	libft/ft_strcmp.c libft/ft_itoa.c\
+	libft/ft_strlen.c \
+	libft/ft_calloc.c \
+	libft/ft_split.c  libft/ft_bzero.c \
        gnl/get_next_line.c \
        gnl/get_next_line_utils.c
 
-# Object files
 OBJS = $(SRCS:.c=.o)
 
-# Compiler and flags
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDES = -Iget_next_line
+CC = cc
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
-# Libraries
 LIBS = -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 
-# Build the program
+all:$(NAME)
+
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
-# Compile object files
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-# Clean object files
 clean:
 	rm -f $(OBJS)
 
-# Clean all generated files
 fclean: clean
 	rm -f $(NAME)
 
-# Rebuild the program
-re: fclean $(NAME)
+re: fclean all
+.SECONDARY:$(OBJS)
+.PHONY : all clean fclean re

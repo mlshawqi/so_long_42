@@ -1,73 +1,99 @@
-#include "minilibx-linux/mlx.h"
-#include <X11/keysym.h>
-#include <X11/X.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animation.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: machaouk <marvin@42.fr>                    #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025-01-15 22:19:01 by machaouk          #+#    #+#             */
+/*   Updated: 2025/01/18 12:17:58 by machaouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct s_data {
-    void    *mlx;
-    void    *win;
-    void    *frames[2]; // Array to store 4 animation frames
-    int     current_frame;
-    int     frame_count;
-} t_data;
+#include "so_long.h"
 
-// Function to display frames
-int animate(t_data *data) {
-    static int counter = 0;
+void	put_images(t_data *d)
+{
+	int	i;
+	int	y;
+	int	x;
+	int	j;
 
-    // Control animation speed (e.g., update every 10 frames)
-        if (counter++ < 3900)
-            return 0;
-        counter = 0;
-
-    // Clear the window (optional, depends on animation type)
-    // mlx_clear_window(data->mlx, data->win);
-
-    // Display the current frame
-    mlx_put_image_to_window(data->mlx, data->win, 
-                            data->frames[data->current_frame], 
-                            100, 100);
-
-    // Move to the next frame
-    data->current_frame = (data->current_frame + 1) % data->frame_count;
-
-    return 0;
+	i = 0;
+	y = 0;
+	while (d->map[i] != NULL)
+	{
+		x = 0;
+		j = 0;
+		while (d->map[i][j] != '\n' && d->map[i][j] != '\0')
+		{
+			if (d->map[i][j] == '1')
+				mlx_put_image_to_window(d->mlx, d->win, d->i_wall, x, y);
+			if (d->map[i][j] == '0')
+				mlx_put_image_to_window(d->mlx, d->win, d->i_background, x, y);
+			x += 50;
+			j++;
+		}
+		i++;
+		y += 50;
+	}
 }
 
-int main() {
-    t_data  data;
-
-    // Initialize MiniLibX
-    data.mlx = mlx_init();
-    data.win = mlx_new_window(data.mlx, 800, 600, "Animation");
-
-    // Load frames (you need .xpm files for this example)
-    data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/butterfly1.xpm", &(int){0}, &(int){0});
-    data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/butterfly2.xpm", &(int){0}, &(int){0});
-    // data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/flore1.xpm", &(int){0}, &(int){0});
-    // data.frames[1] = mlx_xpm_file_to_image(data.mlx, "textures/flore2.xpm", &(int){0}, &(int){0}); 
-    data.frame_count = 2; // Update frame count
-    data.current_frame = 0;
-
-    // Hook the animation function to the main loop
-    mlx_loop_hook(data.mlx, animate, &data);
-
-    // Run the loop
-    mlx_loop(data.mlx);
-    mlx_destroy_window(data.mlx, data.win);
-
-    return 0;
+void	put_animate_image(t_data *swan, char hint, int x, int y)
+{
+	if (hint == 'P')
+	{
+		if (swan->butterfly_r == 0)
+			mlx_put_image_to_window(swan->mlx, swan->win,
+				swan->f_player_r[swan->current_frame], x, y);
+		else if (swan->butterfly_r == 1)
+			mlx_put_image_to_window(swan->mlx, swan->win,
+				swan->f_player_l[swan->current_frame], x, y);
+	}
+	else if (hint == 'C')
+		mlx_put_image_to_window(swan->mlx, swan->win,
+			swan->frame_collectable[swan->current_frame], x, y);
+	else if (hint == 'M')
+		mlx_put_image_to_window(swan->mlx, swan->win,
+			swan->frame_enemy[swan->current_frame], x, y);
+	else if (hint == 'E')
+		mlx_put_image_to_window(swan->mlx, swan->win,
+			swan->f_exit[swan->current_frame], x, y);
 }
 
-// void    image_animate(int   size, char  *path,)
-// {
-//     int i;
+int	animate(t_data *anim)
+{
+	long	counter;
+	int		i;
+	int		j;
 
-//     i = 0;
-//     while(i < size)
-//     {
-//         data.frames[0] = mlx_xpm_file_to_image(data.mlx, "textures/nrabbit1.xpm", &(int){0}, &(int){0});
-//     }
-// }
+	i = 0;
+	while (anim->map[i] != NULL)
+	{
+		j = 0;
+		while (anim->map[i][j] != '\0' && anim->map[i][j] != '\n')
+		{
+			put_animate_image(anim, anim->map[i][j], j * 50, i * 50);
+			j++;
+		}
+		i++;
+	}
+	anim->current_frame = (anim->current_frame + 1) % 2;
+	counter = 0;
+	while (counter < MAX)
+		counter++;
+	return (0);
+}
+
+void	ft_draw_map(t_data *game)
+{
+	char	*ptr;
+
+	put_images(game);
+	ptr = ft_itoa(game->movement);
+	game->n_move = ft_strjoin("movement : ", ptr);
+	free(ptr);
+	mlx_string_put(game->mlx, game->win, 20, 20, 0xFF0000, game->n_move);
+	free(game->n_move);
+	mlx_loop_hook(game->mlx, animate, game);
+}
