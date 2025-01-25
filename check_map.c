@@ -46,7 +46,7 @@ int	p_position(t_data *w)
 	while (w->map && w->map[i] != NULL)
 	{
 		j = 0;
-		while (w->map[i][j] != '\0')
+		while (w->map[i][j] && w->map[i][j] != '\0')
 		{
 			if (w->map[i][j] == 'P')
 			{
@@ -102,16 +102,14 @@ int	characters(t_data *wl)
 void	check_map(t_data *dt)
 {
 	dt->fd = open(dt->path, O_RDONLY);
-	free(dt->path);
+	ft_free2(dt->path);
 	if (dt->fd < 0)
-	{
-		close(dt->fd);
-		ft_message("Can't open the file!❌\n");		
-	}
+		ft_msg_destroy(dt, "Error\nCan't open the file!❌\n");
 	save_map(dt->fd, dt);
 	check_walls(dt);
 	if (p_position(dt) == 1)
-		ft_message("missing 'P' in the Map.❌\n");
+		ft_msg_destroy(dt, "Error\nmissing 'P' in the Map.❌\n");
 	if (characters(dt) == 1)
-		ft_message("Repeated or Invalide character in the map.❌\n");
+		ft_msg_destroy(dt,
+			"Error\nRepeated or Invalide character in the map.❌\n");
 }

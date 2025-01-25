@@ -6,14 +6,14 @@
 /*   By: machaouk <marvin@42.fr>                    #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025-01-15 22:19:52 by machaouk          #+#    #+#             */
-/*   Updated: 2025/01/16 11:18:17 by machaouk         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:04:31 by machaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "minilibx-linux/mlx.h"
+# include <mlx.h>
 # include <stdlib.h>
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
@@ -36,6 +36,7 @@ typedef struct s_data
 	int		width;
 	int		height;
 	char	**map;
+	char	*line;
 	int		collectable;
 	int		exit;
 	int		player;
@@ -56,7 +57,7 @@ typedef struct s_data
 	char	*n_move;
 	int		collecting;
 	int		butterfly_r;
-	int	fd;
+	int		fd;
 }			t_data;
 
 void		check_walls(t_data *walls);
@@ -84,7 +85,8 @@ char		*ft_itoa(int n);
 void		ft_load_player(t_data *data);
 void		put_animate_image(t_data *swan, char hint, int x, int y);
 void		textures(t_data *t);
-void		ft_save(int fd, char *line, t_data *d);
+void		ft_save(t_data *d);
 void		put_null(t_data *game);
-int		handle_window_close(t_data *vars);
+int			handle_window_close(t_data *vars);
+void		ft_free_line(t_data *d, int fd);
 #endif

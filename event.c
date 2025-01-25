@@ -65,8 +65,8 @@ int	ft_close(int keycode, t_data *vars)
 	return (0);
 }
 
-int handle_window_close(t_data *vars)
+int	handle_window_close(t_data *vars)
 {
-    ft_msg_destroy(vars, "Window closed.\n");
-    return (0);
+	ft_msg_destroy(vars, "Window closed.\n");
+	return (0);
 }

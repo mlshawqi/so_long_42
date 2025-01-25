@@ -59,9 +59,11 @@ void	ft_free(char **str)
 	while (str && str[k] != NULL)
 	{
 		free(str[k]);
+		str[k] = NULL;
 		k++;
 	}
 	free(str);
+	str = NULL;
 	return ;
 }
 

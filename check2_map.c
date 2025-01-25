@@ -20,7 +20,10 @@ void	flood_fill(char **str, t_data *wl, int x, int y)
 	if (str[x][y] == 'C')
 		wl->collectable++;
 	else if (str[x][y] == 'E')
+	{
 		wl->exit = 1;
+		return ;
+	}
 	else if (str[x][y] == 'P')
 		wl->player++;
 	str[x][y] = 'V';
@@ -36,7 +39,7 @@ void	check2_map(t_data *data)
 
 	map_copy = copy_map(data->map, data->height);
 	if (map_copy == NULL)
-		ft_msg_destroy(data, "Fail to copy map!❌\n");
+		ft_msg_destroy(data, "Error\nFail to copy map!❌\n");
 	data->collectable = 0;
 	data->exit = 0;
 	data->player = 0;
@@ -45,7 +48,7 @@ void	check2_map(t_data *data)
 	if (data->collectable != data->c || data->exit != data->e
 		|| data->player != data->p)
 		ft_msg_destroy(data,
-			"The map has isolated areas that are inaccessible.❌\n");
+			"Error\nThe map has isolated areas that are inaccessible.❌\n");
 }
 
 void	check_path(t_data *g, int argc, char *argv[])

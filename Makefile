@@ -12,9 +12,9 @@ SRCS = main.c check_map.c check2_map.c error.c\
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 
-LIBS = -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+LIBS= -lmlx -lX11 -lXext 
 
 all:$(NAME)
 

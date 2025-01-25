@@ -21,3 +21,12 @@ int	ft_strlen(char *s)
 		len++;
 	return (len);
 }
+
+void	ft_free2(void *s)
+{
+	if (s)
+	{
+		free(s);
+		s = NULL;
+	}
+}

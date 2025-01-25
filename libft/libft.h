@@ -6,7 +6,7 @@
 /*   By: machaouk <marvin@42.fr>                    #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025-01-16 20:14:45 by machaouk          #+#    #+#             */
-/*   Updated: 2025/01/16 21:15:46 by machaouk         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:04:08 by machaouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void		ft_free(char **str);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
 char		*ft_itoa(int n);
-
+void		ft_free2(void *s);
 #endif

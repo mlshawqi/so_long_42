@@ -86,10 +86,22 @@ static char	*ft_error(ssize_t byte, char **buff, char **savebf)
 	{
 		if (*savebf)
 			return (*savebf);
+		if (*buff)
+		{
+			free(*buff);
+			*buff = NULL;
+		}
 		return (NULL);
 	}
 	if (*savebf)
+	{
+		if (*buff)
+		{
+			free(*buff);
+			*buff = NULL;
+		}
 		ft_save_free_str(savebf, NULL, NULL, 0);
+	}
 	return (NULL);
 }
 
@@ -119,19 +131,3 @@ char	*get_next_line(int fd)
 		}
 	}
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-
-// 	fd = open("txt", O_RDONLY);
-// 	char *s = get_next_line(fd);
-// 	while(s)
-// 	{
-// 		printf("%s", s);
-// 		free(s);
-// 		s = get_next_line(fd);
-// 	}
-// 	// printf("%s", get_next_line(fd));
-// 	return (0);
-// }

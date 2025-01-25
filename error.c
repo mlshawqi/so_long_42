@@ -28,7 +28,7 @@ void	ft_destroy(t_data *d)
 	if (d->mlx)
 	{
 		mlx_destroy_display(d->mlx);
-		free(d->mlx);		
+		ft_free2(d->mlx);
 	}
 	if (d->map)
 		ft_free(d->map);
@@ -39,12 +39,16 @@ void	ft_msg_destroy(t_data *data, char *msg)
 {
 	write(1, msg, ft_strlen(msg));
 	textures(data);
-	close(data->fd);
+	if (data->line)
+		ft_free2(data->line);
+	if (data->fd)
+		close(data->fd);
 	if (data->mlx && data->win)
-	{
 		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+	{
 		mlx_destroy_display(data->mlx);
-		free(data->mlx);
+		ft_free2(data->mlx);
 	}
 	if (data->map)
 		ft_free(data->map);
@@ -82,6 +86,7 @@ void	textures(t_data *t)
 void	put_null(t_data *game)
 {
 	game->path = NULL;
+	game->line = NULL;
 	game->movement = 0;
 	game->height = 0;
 	game->width = 0;
